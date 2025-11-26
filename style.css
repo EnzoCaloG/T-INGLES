@@ -1,0 +1,384 @@
+/* -------------------------------------------------------------------------- */
+/* VARIÁVEIS E ESTILOS GLOBAIS (Paleta: Azul, Laranja, Roxo, Azul Escuro)     */
+/* -------------------------------------------------------------------------- */
+
+:root {
+    /* Paleta */
+    --color-blue-dark: #192A56; /* Azul Escuro (Navbar, Footer) */
+    --color-blue-light: #2E86DE; /* Azul Principal (Ações, Borda de Card) */
+    --color-orange: #FF7F50; /* Laranja Vívido (Acento, D&D slots) */
+    --color-purple: #8E44AD; /* Roxo (Títulos) */
+    
+    /* Cores de Base */
+    --bg-main: #f0f4f8; /* Fundo principal (cinza/azul bem claro) */
+    --text-dark: #333333;
+    --text-light: #ffffff;
+    --card-bg: #ffffff;
+    --border-radius: 10px; 
+    --shadow-lift: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Base Geral */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--bg-main);
+    color: var(--text-dark);
+    line-height: 1.6;
+    min-height: 100vh;
+    padding-top: 66px; /* Para acomodar a navbar fixa */
+}
+
+h1, h2, h3 {
+    font-family: 'Playfair Display', serif; 
+    color: var(--color-purple);
+    font-weight: 700;
+}
+
+/* -------------------------------------------------------------------------- */
+/* NAVBAR E RODAPÉ                                                            */
+/* -------------------------------------------------------------------------- */
+
+#main-navbar {
+    background-color: var(--color-blue-dark) !important;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    z-index: 1030; 
+}
+
+.navbar-brand {
+    font-size: 1.5em;
+    color: var(--color-orange) !important; 
+    font-weight: bold;
+}
+
+.nav-link {
+    color: var(--text-light) !important;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.nav-link:hover, .nav-link.active {
+    color: var(--color-orange) !important;
+}
+
+footer {
+    background-color: var(--color-blue-dark) !important;
+    color: var(--text-light);
+}
+
+/* -------------------------------------------------------------------------- */
+/* SEÇÕES E CARDS                                                             */
+/* -------------------------------------------------------------------------- */
+
+/* Card Genérico (Usado em Apresentação, Pontuação, etc) */
+.info-card {
+    background-color: var(--card-bg);
+    border: 1px solid #ddd;
+    box-shadow: var(--shadow-lift);
+    border-left: 5px solid var(--color-blue-light);
+    transition: transform 0.2s;
+    border-radius: var(--border-radius);
+}
+
+.info-card:hover {
+    transform: translateY(-2px);
+}
+
+.info-card .fa-3x {
+    color: var(--color-orange);
+}
+
+
+/* -------------------------------------------------------------------------- */
+/* QUIZ E RANKING CARDS (PRINCIPAL)                                           */
+/* -------------------------------------------------------------------------- */
+
+.quiz-card, .ranking-card {
+    background: var(--card-bg);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-lift);
+    border: 1px solid #ddd;
+    border-left: 5px solid var(--color-blue-light); 
+}
+
+.btn-custom-action {
+    background-color: var(--color-blue-light);
+    border: none;
+    color: var(--text-light);
+    font-weight: bold;
+    border-radius: 5px;
+    transition: all 0.3s;
+}
+
+.btn-custom-action:hover {
+    background-color: #216ba2;
+}
+
+/* Input de Nome */
+#username {
+    background-color: var(--bg-main);
+    border: 1px solid var(--color-blue-light);
+    color: var(--text-dark);
+}
+
+/* -------------------------------------------------------------------------- */
+/* ESTILOS ESPECÍFICOS DO QUIZ (Tipos de Perguntas)                           */
+/* -------------------------------------------------------------------------- */
+
+.question-item {
+    margin-bottom: 30px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    background-color: #f9f9f9;
+}
+
+.question-item p strong {
+    color: var(--color-purple);
+    font-size: 1.1em;
+}
+
+/* Múltipla Escolha - NOVO ESTILO EM BOTÃO */
+.options-container {
+    display: flex;
+    flex-wrap: wrap; 
+    justify-content: center; 
+    gap: 10px;
+    margin-top: 15px;
+}
+
+/* 1. Esconde o radio button nativo */
+.options-container input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* 2. Estiliza o label (a alternativa) como um botão */
+.question-item label {
+    display: inline-block;
+    padding: 10px 20px;
+    
+    /* Cores de botão desativado */
+    background-color: var(--card-bg);
+    color: var(--text-dark);
+    border: 2px solid var(--color-blue-light); 
+    
+    border-radius: 50px; /* Borda arredondada (estilo pílula) */
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    text-align: center;
+    font-weight: 500;
+    min-width: 150px;
+    flex: 1 1 45%; /* Permite que os botões se ajustem em 2 colunas, se o espaço permitir */
+}
+
+.question-item label:hover {
+    background-color: var(--bg-main); 
+    border-color: var(--color-purple);
+}
+
+/* 3. Estilo quando selecionado */
+.options-container input[type="radio"]:checked + label {
+    background-color: var(--color-blue-light);
+    color: var(--text-light);
+    border-color: var(--color-blue-dark);
+    box-shadow: 0 0 5px rgba(46, 134, 222, 0.5); /* Sombra suave para destaque */
+}
+/* FIM DO NOVO ESTILO */
+
+
+/* Drag and Drop / Word Sort */
+.sentence-area {
+    font-size: 1.1em;
+    padding: 15px;
+    border: 2px dashed var(--color-orange); 
+    border-radius: var(--border-radius);
+    background-color: #fff8f5; 
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.drop-slot {
+    /* Slot para D&D (preencher buraco) */
+    display: inline-block;
+    min-width: 100px;
+    height: 35px;
+    margin: 0 5px;
+    border-bottom: 3px solid var(--color-orange);
+    text-align: center;
+    line-height: 35px;
+    background-color: #f7f7f7;
+    vertical-align: middle;
+    border-radius: 5px 5px 0 0;
+    color: var(--text-dark);
+    font-weight: 500;
+    padding: 0 5px;
+}
+
+.drop-slot-sort {
+    /* Slot para Word Sort (ordenar palavras) - EXIBIÇÃO HORIZONTAL */
+    display: flex; 
+    flex-wrap: wrap; 
+    gap: 8px; 
+    
+    min-width: 100%;
+    min-height: 50px; /* Maior altura para acomodar as palavras */
+    
+    padding: 10px; 
+    border: 3px solid var(--color-orange); 
+    border-radius: var(--border-radius);
+    background-color: #f7f7f7;
+    align-items: center;
+}
+
+
+.draggable-words {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 15px;
+    background-color: #f5f5ff; 
+    border: 1px solid var(--color-purple);
+    border-radius: var(--border-radius);
+}
+
+.drag-word {
+    padding: 8px 15px;
+    background-color: var(--color-orange); 
+    color: var(--text-light);
+    border-radius: 20px;
+    cursor: grab;
+    font-weight: bold;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.drop-slot.drag-over, .drop-slot-sort.drag-over {
+    background-color: #c8e6c9; 
+    border-color: #4CAF50;
+}
+
+/* Container de Vídeo para Proporção 16:9 */
+.video-container {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; 
+    height: 0;
+    overflow: hidden;
+    border: 3px solid var(--color-blue-light); 
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+
+/* -------------------------------------------------------------------------- */
+/* RANKING (Tabela)                                                           */
+/* -------------------------------------------------------------------------- */
+
+#ranking-table thead th {
+    background-color: var(--color-blue-light) !important;
+    color: var(--text-light);
+    font-weight: 700;
+}
+
+#ranking-body tr:nth-child(1) td:first-child { 
+    color: var(--color-orange); 
+    font-weight: bold;
+    font-size: 1.1em;
+}
+/* -------------------------------------------------------------------------- */
+/* JOGO DA MEMÓRIA                                                            */
+/* -------------------------------------------------------------------------- */
+
+.memory-board-grid {
+    display: grid;
+    gap: 10px;
+    padding: 20px;
+    border: 3px solid var(--color-blue-light);
+    border-radius: var(--border-radius);
+    background-color: var(--card-bg);
+    max-width: fit-content;
+    box-shadow: var(--shadow-lift);
+}
+
+.memory-grid-4x3 {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.memory-grid-4x4 {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.memory-grid-5x4 {
+    grid-template-columns: repeat(5, 1fr);
+}
+
+.memory-card {
+    perspective: 1000px;
+    width: 100px; /* Tamanho fixo da carta */
+    height: 100px; /* Tamanho fixo da carta */
+    cursor: pointer;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.6s;
+}
+
+.card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+}
+
+.memory-card.flipped .card-inner {
+    transform: rotateY(180deg);
+}
+
+.card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    font-weight: bold;
+    padding: 5px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+.card-front {
+    background-color: var(--color-blue-dark);
+    color: var(--text-light);
+    font-size: 2rem;
+}
+
+.card-back {
+    background-color: var(--color-orange);
+    color: var(--text-light);
+    transform: rotateY(180deg);
+}
+
+.memory-card.matched .card-back {
+    background-color: #4CAF50; /* Cor de sucesso */
+    border: 2px solid #388E3C;
+}
+
+.btn-level.active-level {
+    box-shadow: 0 0 0 4px var(--color-purple), 0 0 10px var(--color-purple);
+    transform: scale(1.05);
+    transition: all 0.3s;
+}
